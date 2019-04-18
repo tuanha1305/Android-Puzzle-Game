@@ -5,9 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-public class Puzzle extends BaseCell {
+public class PuzzleCell extends BaseCell {
     private int color;
-    public Puzzle(Context context) {
+    public PuzzleCell(Context context) {
         super(context);
     }
 
@@ -17,6 +17,7 @@ public class Puzzle extends BaseCell {
 
     public void setColor(int color) {
         this.color = color;
+        invalidate();
     }
 
     @Override

@@ -15,7 +15,7 @@ public class GameEngine {
 
     private Context context;
 
-    private Puzzle[][] PuzzleGrid;
+    private PuzzleCell[][] puzzleCellGrid;
 
     public static GameEngine getInstance() {
         if( instance == null ){
@@ -29,7 +29,7 @@ public class GameEngine {
 
     public void createGrid(Context context){
         this.context = context;
-        PuzzleGrid = new Puzzle[WIDTH][HEIGHT];
+        puzzleCellGrid = new PuzzleCell[WIDTH][HEIGHT];
         setGrid(context);
 
     }
@@ -37,22 +37,39 @@ public class GameEngine {
     private void setGrid( final Context context){
         for( int x = 0 ; x < WIDTH ; x++ ){
             for( int y = 0 ; y < HEIGHT ; y++ ){
-                if( PuzzleGrid[x][y] == null ){
-                        PuzzleGrid[x][y] = new Puzzle(context);
+                if( puzzleCellGrid[x][y] == null ){
+                        puzzleCellGrid[x][y] = new PuzzleCell(context);
                 }
                 Random rnd = new Random();
-                PuzzleGrid[x][y].setColor(Color.argb(255,rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
-                PuzzleGrid[x][y].invalidate();
+                puzzleCellGrid[x][y].setColor(Color.WHITE);
+//                PuzzleGrid[x][y].setColor(Color.argb(255,rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)));
+
 
             }
         }
     }
 
-    public Puzzle getCellAt(int position) {
+    public PuzzleCell getCellAt(int position) {
         int x = position % WIDTH;
         int y = position / WIDTH;
 
-        return PuzzleGrid[x][y];
+        return puzzleCellGrid[x][y];
+    }
+    public void addPuzzle(int position){
+        int x = position % WIDTH;
+        int y = position / WIDTH;
+            puzzleCellGrid[x][y].setColor(Color.RED);
+            puzzleCellGrid[x-1][y-1].setColor(Color.RED);
+            puzzleCellGrid[x][y-1].setColor(Color.RED);
+            puzzleCellGrid[x+1][y-1].setColor(Color.RED);
+
+    }
+    public void addPuzzle(int x,int y){
+        puzzleCellGrid[x][y].setColor(Color.RED);
+        puzzleCellGrid[x-1][y-1].setColor(Color.RED);
+        puzzleCellGrid[x][y-1].setColor(Color.RED);
+        puzzleCellGrid[x+1][y-1].setColor(Color.RED);
+
     }
 
 

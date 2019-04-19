@@ -2,11 +2,12 @@ package com.nstudio.myapplication.engine;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class PuzzleCell extends BaseCell {
-    private int color;
+    private int color=Color.WHITE;
     public PuzzleCell(Context context) {
         super(context);
     }
@@ -15,14 +16,21 @@ public class PuzzleCell extends BaseCell {
         return color;
     }
 
+
     public void setColor(int color) {
         this.color = color;
+        setValue(1);
         invalidate();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    }
+    public void Destroy(){
+        setValue(0);
+        color= Color.WHITE;
+        invalidate();
     }
 
     @Override

@@ -12,13 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.nstudio.myapplication.engine.GameView>
-
     <com.nstudio.myapplication.engine.PuzzleBlockView
         android:scrollbars="none"
         android:id="@+id/puzzle1"
         android:layout_below="@id/gameview"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content" />
+    <com.nstudio.myapplication.engine.PuzzleBlockView
+        android:layout_toRightOf="@id/puzzle1"
+        android:scrollbars="none"
+        android:id="@+id/puzzle2"
+        android:layout_below="@id/gameview"
         android:layout_width="140dp"
         android:layout_height="wrap_content" />
+    <com.nstudio.myapplication.engine.PuzzleBlockView
+        android:layout_toRightOf="@id/puzzle2"
+        android:scrollbars="none"
+        android:id="@+id/puzzle3"
+        android:layout_below="@id/gameview"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_below="@id/puzzle1"
+        android:clickable="true"
+        android:background="#243E5E"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
 
 
 </RelativeLayout>

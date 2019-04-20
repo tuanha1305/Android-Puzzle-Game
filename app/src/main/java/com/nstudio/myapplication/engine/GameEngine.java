@@ -13,6 +13,7 @@ public class GameEngine {
     private static GameEngine instance;
     public static int WIDTH=10;
     public static int HEIGHT=10;
+    public static int CELLSIZE;
 
     private Context context;
 
@@ -113,6 +114,20 @@ public class GameEngine {
 //            puzzleCellGrid[x - 1][y - 1].setColor(Color.RED);
 //            puzzleCellGrid[x][y - 1].setColor(Color.RED);
 //            puzzleCellGrid[x + 1][y - 1].setColor(Color.RED);
+        }
+
+    }
+    public void addPuzzle(int position){
+        int x = position % WIDTH;
+        int y = position / WIDTH;
+
+        if(x+1>0&&y+1>0) {
+
+            puzzleCellGrid[x][y-1].setColor(Color.RED);
+            puzzleCellGrid[x][y].setColor(Color.RED);
+            puzzleCellGrid[x + 1][y].setColor(Color.RED);
+            puzzleCellGrid[x - 1][y].setColor(Color.RED);
+            checkdestroy();
         }
 
     }

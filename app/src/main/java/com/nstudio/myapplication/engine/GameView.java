@@ -30,7 +30,6 @@ public class GameView extends GridView{
             @Override
             public void onGlobalLayout() {
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
                 GameEngine.getInstance().createGrid(context);
                 setNumColumns(GameEngine.WIDTH);
                 setAdapter(new GridAdapter());
@@ -51,16 +50,30 @@ public class GameView extends GridView{
 //                        final int x = (int) event.getRawX();
 //                        final int y = (int) event.getRawY();
 
-                        int pos = pointToPosition((int) event.getX(), (int) event.getY());
 
                         switch (event.getAction() & MotionEvent.ACTION_MASK) {
                             case MotionEvent.ACTION_DOWN:
 //
                                 dX = child.getX() - event.getRawX();
                                 dY = child.getY() - event.getRawY();
+
+//                                Log.d("tesssdsd", "dxdy: "+getWidth()+"/"+getHeight());
+//                                Log.d("tesssdsd", "dxdy: "+child.getWidth()+"/"+child.getHeight());
+//                                Log.d("tesssdsd", "dxdy: "+child.getX()+"/"+child.getY());
+                                Log.d("tesssdsd", "dxdy: "+event.getX()+"/"+event.getY());
+                                Log.d("tesssdsd", "dxdy: "+event.getRawX()+"/"+event.getRawY());
+                                child.animate()
+                                        .x(0)
+                                        .y(getHeight()-child.getHeight())
+                                        .setDuration(0)
+                                        .start();
                                 break;
                             case MotionEvent.ACTION_UP:
-                                GameEngine.getInstance().addPuzzle(pos,child.getPosition());
+
+                                int pos = pointToPosition((int)child.getX()+child.getWidth()/2, (int) child.getY()+child.getHeight()/2);
+                                Toast.makeText(context, ""+pos, Toast.LENGTH_SHORT).show();
+//                                GameEngine.getInstance().addPuzzle(pos,child.getPosition());
+                                GameEngine.getInstance().addPuzzle(pos);
                                 child.animate()
                                         .x(odX)
                                         .y(odY)
@@ -72,9 +85,17 @@ public class GameView extends GridView{
                             case MotionEvent.ACTION_POINTER_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
+                                Log.d("tesssdsd", "dxdy: "+dX+"/"+dY);
+                                Log.d("tesssdsd", "ev: "+event.getX()+"/"+event.getY());
+                                Log.d("tesssdsd", "ed: "+event.getRawX()+"/"+event.getRawY());
+//                                child.animate()
+//                                        .x(event.getRawX()+child.getX())
+//                                        .y(event.getRawY()+child.getY())
+//                                        .setDuration(0)
+//                                        .start();
                                 child.animate()
                                         .x(event.getRawX() + dX)
-                                        .y(event.getRawY() + dY)
+                                        .y(event.getRawY() + dY-child.getHeight())
                                         .setDuration(0)
                                         .start();
                                 break;

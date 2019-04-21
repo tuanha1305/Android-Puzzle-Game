@@ -19,8 +19,8 @@ public class GameEngine {
 
     private PuzzleCell[][] puzzleCellGrid;
 
-    private PuzzleCell[] puzzleBlock1=new PuzzleCell[6];
-    private PuzzleCell[][] puzzleBlock2=new PuzzleCell[5][5];
+    private PuzzleCell[] puzzleBlock1;
+    private PuzzleCell[] puzzleBlock2=new PuzzleCell[6];
     private PuzzleCell[][] puzzleBlock3=new PuzzleCell[5][5];
 
 
@@ -117,20 +117,118 @@ public class GameEngine {
         }
 
     }
+
     public void addPuzzle(int position){
         int x = position % WIDTH;
         int y = position / WIDTH;
 
-        if(x+1>0&&y+1>0) {
+        switch (puzzleBlock1[0].getValue()){
+            case 1:{
+                if(puzzleCellGrid[x][y-1].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x+1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y-1].setColor(puzzleBlock1[1].getColor());
+                    puzzleCellGrid[x][y].setColor(puzzleBlock1[1].getColor());
+                    puzzleCellGrid[x + 1][y].setColor(puzzleBlock1[1].getColor());
+                    puzzleCellGrid[x - 1][y].setColor(puzzleBlock1[1].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 2:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y-1].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x][y-1].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock1[0].getColor());
+                    puzzleCellGrid[x-1][y].setColor(puzzleBlock1[0].getColor());
+                    puzzleCellGrid[x -1][y-1].setColor(puzzleBlock1[0].getColor());
+                    puzzleCellGrid[x][y-1].setColor(puzzleBlock1[0].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 3:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x+1][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock1[0].getColor());
+                    puzzleCellGrid[x-1][y].setColor(puzzleBlock1[0].getColor());
+                    puzzleCellGrid[x+1][y].setColor(puzzleBlock1[0].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 4:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock1[1].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
 
-            puzzleCellGrid[x][y-1].setColor(Color.RED);
-            puzzleCellGrid[x][y].setColor(Color.RED);
-            puzzleCellGrid[x + 1][y].setColor(Color.RED);
-            puzzleCellGrid[x - 1][y].setColor(Color.RED);
-            checkdestroy();
         }
 
+
+
     }
+    public void addPuzzle2(int position){
+        int x = position % WIDTH;
+        int y = position / WIDTH;
+
+        switch (puzzleBlock2[0].getValue()){
+            case 1:{
+                if(puzzleCellGrid[x][y-1].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x+1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y-1].setColor(puzzleBlock2[1].getColor());
+                    puzzleCellGrid[x][y].setColor(puzzleBlock2[1].getColor());
+                    puzzleCellGrid[x + 1][y].setColor(puzzleBlock2[1].getColor());
+                    puzzleCellGrid[x - 1][y].setColor(puzzleBlock2[1].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 2:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y-1].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x][y-1].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock2[0].getColor());
+                    puzzleCellGrid[x-1][y].setColor(puzzleBlock2[0].getColor());
+                    puzzleCellGrid[x -1][y-1].setColor(puzzleBlock2[0].getColor());
+                    puzzleCellGrid[x][y-1].setColor(puzzleBlock2[0].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 3:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x-1][y].getColor()==Color.parseColor("#FF474747")
+                        &&puzzleCellGrid[x+1][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock2[0].getColor());
+                    puzzleCellGrid[x-1][y].setColor(puzzleBlock2[0].getColor());
+                    puzzleCellGrid[x+1][y].setColor(puzzleBlock2[0].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+            case 4:{
+                if(puzzleCellGrid[x][y].getColor()==Color.parseColor("#FF474747")){
+                    puzzleCellGrid[x][y].setColor(puzzleBlock2[1].getColor());
+                    checkdestroy();
+                }
+                break;
+            }
+
+        }
+
+
+
+    }
+
 
     private void checkdestroy() {
         for (int i = 0; i <HEIGHT ; i++) {
@@ -194,20 +292,173 @@ public class GameEngine {
 
         return puzzleBlock1[position];
     }
+    public PuzzleCell getBlockat2(int position) {
+        int x = position % 5;
+        int y = position / 5;
+
+        return puzzleBlock2[position];
+    }
 
 
     public void createBlock(Context context) {
-        for (int i = 0; i <6 ; i++) {
-                if( puzzleBlock1[i] == null ){
-                    puzzleBlock1[i]= new PuzzleCell(context);
-                }
-                if(i==1||i==3||i==4||i==5){
-                    puzzleBlock1[i].setColor(Color.RED);
-                }else {
-                    puzzleBlock1[i].setColor(Color.TRANSPARENT);
-                }
+        Random rnd = new Random();
+        int co=Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        switch (rnd.nextInt(4 - 1 + 1) + 1){
+            case 1:{
+                puzzleBlock1 = new PuzzleCell[6];
+                for (int i = 0; i <6 ; i++) {
+                    if( puzzleBlock1[i] == null ){
+                        puzzleBlock1[i]= new PuzzleCell(context);
+                        puzzleBlock1[0].setValue(1);
+                        puzzleBlock1[i].setBlocksize(6);
+                        puzzleBlock1[i].setColum(3);
+                    }
+                    if(i==1||i==3||i==4||i==5){
+                        puzzleBlock1[i].setColor(co);
+                    }else {
+                        puzzleBlock1[i].setColor(Color.TRANSPARENT);
+                    }
 
 
+                }
+                break;
             }
+            case 2:{
+                puzzleBlock1 = new PuzzleCell[6];
+                for (int i = 0; i <6 ; i++) {
+                    if( puzzleBlock1[i] == null ){
+                        puzzleBlock1[i]= new PuzzleCell(context);
+                        puzzleBlock1[0].setValue(2);
+                        puzzleBlock1[i].setBlocksize(6);
+                        puzzleBlock1[i].setColum(3);
+                    }
+                    if(i==0||i==1||i==3||i==4){
+                        puzzleBlock1[i].setColor(co);
+                    }else {
+                        puzzleBlock1[i].setColor(Color.TRANSPARENT);
+                    }
+
+
+                }
+                break;
+            }
+            case 3:{
+                puzzleBlock1 = new PuzzleCell[3];
+                for (int i = 0; i <3 ; i++) {
+                    if( puzzleBlock1[i] == null ){
+                        puzzleBlock1[i]= new PuzzleCell(context);
+                        puzzleBlock1[0].setValue(3);
+                        puzzleBlock1[i].setBlocksize(3);
+                        puzzleBlock1[i].setColum(3);
+                    }
+                    if(i==0||i==1||i==2){
+                        puzzleBlock1[i].setColor(co);
+                    }
+
+                }
+                break;
+            }
+            case 4:{
+                puzzleBlock1 = new PuzzleCell[3];
+                for (int i = 0; i <3 ; i++) {
+                    if( puzzleBlock1[i] == null ){
+                        puzzleBlock1[i]= new PuzzleCell(context);
+                        puzzleBlock1[0].setValue(4);
+                        puzzleBlock1[i].setBlocksize(3);
+                        puzzleBlock1[i].setColum(3);
+                    }
+                    if(i==1){
+                        puzzleBlock1[i].setColor(co);
+                    }else {
+                        puzzleBlock1[i].setColor(Color.TRANSPARENT);
+                    }
+
+                }
+                break;
+            }
+
+        }
+
+    }
+
+    public void createBlock2(Context context) {
+        Random rnd = new Random();
+        int co=Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        switch (rnd.nextInt(4 - 1 + 1) + 1){
+            case 1:{
+                puzzleBlock2 = new PuzzleCell[6];
+                for (int i = 0; i <6 ; i++) {
+                    if( puzzleBlock2[i] == null ){
+                        puzzleBlock2[i]= new PuzzleCell(context);
+                        puzzleBlock2[0].setValue(1);
+                        puzzleBlock2[i].setBlocksize(6);
+                        puzzleBlock2[i].setColum(3);
+                    }
+                    if(i==1||i==3||i==4||i==5){
+                        puzzleBlock2[i].setColor(co);
+                    }else {
+                        puzzleBlock2[i].setColor(Color.TRANSPARENT);
+                    }
+
+
+                }
+                break;
+            }
+            case 2:{
+                puzzleBlock2 = new PuzzleCell[6];
+                for (int i = 0; i <6 ; i++) {
+                    if( puzzleBlock2[i] == null ){
+                        puzzleBlock2[i]= new PuzzleCell(context);
+                        puzzleBlock2[0].setValue(2);
+                        puzzleBlock2[i].setBlocksize(6);
+                        puzzleBlock2[i].setColum(3);
+                    }
+                    if(i==0||i==1||i==3||i==4){
+                        puzzleBlock2[i].setColor(co);
+                    }else {
+                        puzzleBlock2[i].setColor(Color.TRANSPARENT);
+                    }
+
+
+                }
+                break;
+            }
+            case 3:{
+                puzzleBlock2 = new PuzzleCell[3];
+                for (int i = 0; i <3 ; i++) {
+                    if( puzzleBlock2[i] == null ){
+                        puzzleBlock2[i]= new PuzzleCell(context);
+                        puzzleBlock2[0].setValue(3);
+                        puzzleBlock2[i].setBlocksize(3);
+                        puzzleBlock2[i].setColum(3);
+                    }
+                    if(i==0||i==1||i==2){
+                        puzzleBlock2[i].setColor(co);
+                    }
+
+                }
+                break;
+            }
+            case 4:{
+                puzzleBlock2 = new PuzzleCell[3];
+                for (int i = 0; i <3 ; i++) {
+                    if( puzzleBlock2[i] == null ){
+                        puzzleBlock2[i]= new PuzzleCell(context);
+                        puzzleBlock2[0].setValue(4);
+                        puzzleBlock2[i].setBlocksize(3);
+                        puzzleBlock2[i].setColum(3);
+                    }
+                    if(i==1){
+                        puzzleBlock2[i].setColor(co);
+                    }else {
+                        puzzleBlock2[i].setColor(Color.TRANSPARENT);
+                    }
+
+                }
+                break;
+            }
+
+        }
+
     }
 }

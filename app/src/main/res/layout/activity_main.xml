@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#353535"
     tools:context=".MainActivity">
 
     <com.nstudio.myapplication.engine.GameView
+        android:paddingTop="@dimen/dp100"
+        android:paddingBottom="@dimen/dp50"
         android:id="@+id/gameview"
-        android:background="#000000"
+        android:background="#353535"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.nstudio.myapplication.engine.GameView>
@@ -16,28 +19,14 @@
         android:scrollbars="none"
         android:id="@+id/puzzle1"
         android:layout_below="@id/gameview"
-        android:layout_width="135dp"
+        android:layout_width="@dimen/dp100"
         android:layout_height="wrap_content" />
-    <com.nstudio.myapplication.engine.PuzzleBlockView
-        android:layout_toRightOf="@id/puzzle1"
+    <com.nstudio.myapplication.engine.PuzzleBlockView2
+        android:layout_alignParentRight="true"
         android:scrollbars="none"
         android:id="@+id/puzzle2"
         android:layout_below="@id/gameview"
-        android:layout_width="140dp"
+        android:layout_width="@dimen/dp100"
         android:layout_height="wrap_content" />
-    <com.nstudio.myapplication.engine.PuzzleBlockView
-        android:layout_toRightOf="@id/puzzle2"
-        android:scrollbars="none"
-        android:id="@+id/puzzle3"
-        android:layout_below="@id/gameview"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content" />
-    <RelativeLayout
-        android:layout_below="@id/puzzle1"
-        android:clickable="true"
-        android:background="#243E5E"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
-
 
 </RelativeLayout>

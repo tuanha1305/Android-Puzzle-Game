@@ -17,13 +17,18 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.nstudio.myapplication.R;
+import com.nstudio.myapplication.Utils.ScreenUtils;
 
 /**
  * Created by Nhatran241 on 18/04/2019
  */
 public class GameView extends GridView{
     float dX, dY;
+    float dX2, dY2;
     float odX, odY;
+    float odX2, odY2;
+
+    int style=0;
     public GameView(final Context context , AttributeSet attrs){
         super(context,attrs);
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -36,6 +41,7 @@ public class GameView extends GridView{
                  final View paren = (View) getParent();
                  final View gameview = paren.findViewById(R.id.gameview);
                  final PuzzleBlockView child = paren.findViewById(R.id.puzzle1);
+                final PuzzleBlockView2 child2 = paren.findViewById(R.id.puzzle2);
                  child.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                      @Override
                      public void onGlobalLayout() {
@@ -44,60 +50,92 @@ public class GameView extends GridView{
                         odY=child.getY();
                      }
                  });
+                child2.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        odX2=child2.getX();
+                        odY2=child2.getY();
+                    }
+                });
                 paren.setOnTouchListener(new OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
 //                        final int x = (int) event.getRawX();
 //                        final int y = (int) event.getRawY();
 
-
                         switch (event.getAction() & MotionEvent.ACTION_MASK) {
                             case MotionEvent.ACTION_DOWN:
-//
-                                dX = child.getX() - event.getRawX();
-                                dY = child.getY() - event.getRawY();
+                                if(event.getRawX()>getWidth()/2){
+                                    style=1;
+                                }else {
+                                    style=0;
+                                }
+                                if(style==0){
 
-//                                Log.d("tesssdsd", "dxdy: "+getWidth()+"/"+getHeight());
-//                                Log.d("tesssdsd", "dxdy: "+child.getWidth()+"/"+child.getHeight());
-//                                Log.d("tesssdsd", "dxdy: "+child.getX()+"/"+child.getY());
-                                Log.d("tesssdsd", "dxdy: "+event.getX()+"/"+event.getY());
-                                Log.d("tesssdsd", "dxdy: "+event.getRawX()+"/"+event.getRawY());
-                                child.animate()
-                                        .x(0)
-                                        .y(getHeight()-child.getHeight())
-                                        .setDuration(0)
-                                        .start();
+                                    dX = child.getX() - event.getRawX();
+                                    dY = child.getY() - event.getRawY();
+                                    child.animate()
+                                            .x(0)
+                                            .y(getHeight() -child.getHeight())
+                                            .setDuration(0)
+                                            .start();
+                                }else {
+                                    dX2 = child2.getX() - event.getRawX();
+                                    dY2 = child2.getY() - event.getRawY();
+                                    child2.animate()
+                                            .x(getWidth()-child2.getWidth())
+                                            .y(getHeight()-child2.getHeight())
+                                            .setDuration(0)
+                                            .start();
+                                }
+
+
                                 break;
                             case MotionEvent.ACTION_UP:
+                                if(style==1){
+                                    int pos = pointToPosition((int)child2.getX()+child2.getWidth()/2, (int) (child2.getY()+child2.getHeight()*4/5));
+                                    GameEngine.getInstance().addPuzzle2(pos);
+                                    GameEngine.getInstance().createBlock2(context);
+                                    child2.updateAdapter();
+                                    child2.animate()
+                                            .x(odX2)
+                                            .y(odY2)
+                                            .setDuration(0)
+                                            .start();
 
-                                int pos = pointToPosition((int)child.getX()+child.getWidth()/2, (int) child.getY()+child.getHeight()/2);
-                                Toast.makeText(context, ""+pos, Toast.LENGTH_SHORT).show();
-//                                GameEngine.getInstance().addPuzzle(pos,child.getPosition());
-                                GameEngine.getInstance().addPuzzle(pos);
-                                child.animate()
-                                        .x(odX)
-                                        .y(odY)
-                                        .setDuration(0)
-                                        .start();
+                                }else {
+                                    int pos = pointToPosition((int)child.getX()+child.getWidth()/2, (int) (child.getY()+child.getHeight()*4/5));
+                                    GameEngine.getInstance().addPuzzle(pos);
+                                    GameEngine.getInstance().createBlock(context);
+                                    child.updateAdapter();
+                                    child.animate()
+                                            .x(odX)
+                                            .y(odY)
+                                            .setDuration(0)
+                                            .start();
+                                }
+
                                     break;
                             case MotionEvent.ACTION_POINTER_DOWN:
                                 break;
                             case MotionEvent.ACTION_POINTER_UP:
                                 break;
                             case MotionEvent.ACTION_MOVE:
-                                Log.d("tesssdsd", "dxdy: "+dX+"/"+dY);
-                                Log.d("tesssdsd", "ev: "+event.getX()+"/"+event.getY());
-                                Log.d("tesssdsd", "ed: "+event.getRawX()+"/"+event.getRawY());
-//                                child.animate()
-//                                        .x(event.getRawX()+child.getX())
-//                                        .y(event.getRawY()+child.getY())
-//                                        .setDuration(0)
-//                                        .start();
-                                child.animate()
-                                        .x(event.getRawX() + dX)
-                                        .y(event.getRawY() + dY-child.getHeight())
-                                        .setDuration(0)
-                                        .start();
+                                if(style==0){
+                                    child.animate()
+                                            .x(event.getRawX() + dX)
+                                            .y(event.getRawY() + dY-child.getHeight())
+                                            .setDuration(0)
+                                            .start();
+                                }else {
+                                    child2.animate()
+                                            .x(event.getRawX() + dX2)
+                                            .y(event.getRawY() + dY2-child2.getHeight())
+                                            .setDuration(0)
+                                            .start();
+                                }
+
                                 break;
                         }
                         return true;

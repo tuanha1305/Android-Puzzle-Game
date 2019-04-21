@@ -12,9 +12,9 @@ import android.widget.GridView;
 /**
  * Created by Nhatran241 on 18/04/2019
  */
-public class PuzzleBlockView extends GridView{
+public class PuzzleBlockView2 extends GridView{
     private int pos;
-    public PuzzleBlockView(final Context context , AttributeSet attrs){
+    public PuzzleBlockView2(final Context context , AttributeSet attrs){
         super(context,attrs);
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -22,8 +22,8 @@ public class PuzzleBlockView extends GridView{
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                initRation(context);
 
-                GameEngine.getInstance().createBlock(context);
-                setNumColumns(GameEngine.getInstance().getBlockat(0).getColum());
+                GameEngine.getInstance().createBlock2(context);
+                setNumColumns(GameEngine.getInstance().getBlockat2(0).getColum());
                 setAdapter(new GridAdapter());
 
             }
@@ -53,7 +53,7 @@ public class PuzzleBlockView extends GridView{
     }
 
     public void updateAdapter() {
-        setNumColumns(GameEngine.getInstance().getBlockat(0).getColum());
+        setNumColumns(GameEngine.getInstance().getBlockat2(0).getColum());
         setAdapter(new GridAdapter());
     }
 
@@ -61,7 +61,7 @@ public class PuzzleBlockView extends GridView{
 
         @Override
         public int getCount() {
-            return GameEngine.getInstance().getBlockat(0).getBlocksize();
+            return GameEngine.getInstance().getBlockat2(0).getBlocksize();
         }
 
         @Override
@@ -76,7 +76,7 @@ public class PuzzleBlockView extends GridView{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return GameEngine.getInstance().getBlockat(position);
+            return GameEngine.getInstance().getBlockat2(position);
         }
     }
 }

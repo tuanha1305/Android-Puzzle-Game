@@ -6,16 +6,39 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.nstudio.myapplication.R;
+
 public class PuzzleCell extends BaseCell {
-    private int color=Color.WHITE;
+    private int color=Color.parseColor("#FF474747");
+    private float rectsize;
+    private float rectRadious;
+    private int blocksize;
+    private int colum;
     public PuzzleCell(Context context) {
         super(context);
+        rectsize=getContext().getResources().getDimension(R.dimen.dp5);
+        rectRadious=getContext().getResources().getDimension(R.dimen.dp25);
+    }
+
+    public int getColum() {
+        return colum;
+    }
+
+    public void setColum(int colum) {
+        this.colum = colum;
     }
 
     public int getColor() {
         return color;
     }
 
+    public int getBlocksize() {
+        return blocksize;
+    }
+
+    public void setBlocksize(int blocksize) {
+        this.blocksize = blocksize;
+    }
 
     public void setColor(int color) {
         this.color = color;
@@ -29,7 +52,7 @@ public class PuzzleCell extends BaseCell {
     }
     public void Destroy(){
         setValue(0);
-        color= Color.WHITE;
+        color= Color.parseColor("#FF474747");
         invalidate();
     }
 
@@ -41,19 +64,18 @@ public class PuzzleCell extends BaseCell {
         paint2.setStyle(Paint.Style.FILL);
 
         RectF rectF = new RectF(
-                5, // left
-                5, // top
-                canvas.getWidth() - 5, // right
-                canvas.getHeight() - 5 // bottom
+                rectsize, // left
+                rectsize, // top
+                canvas.getWidth() - rectsize, // right
+                canvas.getHeight() -rectsize // bottom
         );
 
 
-        int cornersRadius = 25;
 
         canvas.drawRoundRect(
                 rectF, // rect
-                cornersRadius, // rx
-                cornersRadius, // ry
+                rectsize*2, // rx
+                rectsize*2, // ry
                 paint2 // Paint
         );
     }
